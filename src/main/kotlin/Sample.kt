@@ -5,11 +5,11 @@ object Sample {
 
   @JvmStatic
   fun main(args: Array<String>) {
-    println(safeToInt("a"))
-    println(safeToInt("1"))
+    println("a".safeToInt())
+    println("1".safeToInt())
   }
 
-  fun safeToInt(value: String): Either<String, Int> {
+  fun String.safeToInt(): Either<String, Int> {
     val optionKleisli = Kleisli { str: String ->
       if (str.toCharArray().all { it.isDigit() }) Some(str.toInt()) else None
     }
@@ -19,6 +19,6 @@ object Sample {
             { Left(str) },
             { number -> Right(number) })
     }
-    return eitherFromOptionKleisli.run(value).ev()
+    return eitherFromOptionKleisli.run(this).ev()
   }
 }
