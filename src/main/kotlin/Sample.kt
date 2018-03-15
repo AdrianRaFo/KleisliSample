@@ -5,22 +5,19 @@ object Sample {
 
   @JvmStatic
   fun main(args: Array<String>) {
-    println(safeToInt(None))
-    println(safeToInt(Some("a")))
-    println(safeToInt(Some("1")))
+    println(safeToInt("a"))
+    println(safeToInt("1"))
   }
 
-  fun safeToInt(value: Option<String>): Either<RuntimeException, Int> {
+  fun safeToInt(value: String): Either<String, Int> {
     val optionKleisli = Kleisli { str: String ->
       if (str.toCharArray().all { it.isDigit() }) Some(str.toInt()) else None
     }
 
-    val eitherFromOptionKleisli = Kleisli { optString: Option<String> ->
-      optString.fold({ Left(NullPointerException("Any String here")) }, { str ->
+    val eitherFromOptionKleisli = Kleisli { str: String ->
         optionKleisli.run(str).ev().fold(
-            { Left(IllegalArgumentException("It's not an Integer")) },
+            { Left(str) },
             { number -> Right(number) })
-      })
     }
     return eitherFromOptionKleisli.run(value).ev()
   }
