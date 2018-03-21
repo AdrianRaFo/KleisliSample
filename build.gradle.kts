@@ -4,15 +4,15 @@ group = "adrianrafo"
 version = "1.0-SNAPSHOT"
 
 buildscript {
-  var kotlin_version: String by extra
-  kotlin_version = "1.2.10"
+  var kotlinVersion: String by extra
+  kotlinVersion = "1.2.10"
 
   repositories {
     mavenCentral()
   }
 
   dependencies {
-    classpath(kotlinModule("gradle-plugin", kotlin_version))
+    classpath(kotlinModule("gradle-plugin", kotlinVersion))
   }
 
 }
@@ -21,7 +21,8 @@ apply {
   plugin("kotlin")
 }
 
-val kotlin_version: String by extra
+val kotlinVersion: String by extra
+val arrowVersion="0.6.1"
 
 repositories {
   mavenCentral()
@@ -30,13 +31,13 @@ repositories {
 }
 
 dependencies {
-  compile(kotlinModule("stdlib-jdk8", kotlin_version))
-  compile("io.arrow-kt:arrow-core:0.6.1")
-  compile("io.arrow-kt:arrow-typeclasses:0.6.1")
-  compile("io.arrow-kt:arrow-instances:0.6.1")
-  compile("io.arrow-kt:arrow-data:0.6.1")
-  compile("io.arrow-kt:arrow-syntax:0.6.1")
-  kapt("io.arrow-kt:arrow-annotations-processor:0.6.1")
+  compile(kotlinModule("stdlib-jdk8", kotlinVersion))
+  compile("io.arrow-kt:arrow-core:$arrowVersion")
+  compile("io.arrow-kt:arrow-typeclasses:$arrowVersion")
+  compile("io.arrow-kt:arrow-instances:$arrowVersion")
+  compile("io.arrow-kt:arrow-data:$arrowVersion")
+  compile("io.arrow-kt:arrow-syntax:$arrowVersion")
+  kapt("io.arrow-kt:arrow-annotations-processor:$arrowVersion")
 }
 
 tasks.withType<KotlinCompile> {
