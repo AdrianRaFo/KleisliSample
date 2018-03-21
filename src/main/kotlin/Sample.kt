@@ -13,14 +13,13 @@ object Sample {
     if (str.toCharArray().all { it.isDigit() }) Some(str.toInt()) else None
   }
 
+  val eitherFromOptionKleisli = Kleisli { str: String ->
+    optionKleisli.run(str).ev().fold(
+        { Left(str) },
+        { number -> Right(number) })
+  }
+
   fun String.safeToInt(): Either<String, Int> {
-
-    val eitherFromOptionKleisli = Kleisli { str: String ->
-      optionKleisli.run(str).ev().fold(
-          { Left(str) },
-          { number -> Right(number) })
-    }
-
     return eitherFromOptionKleisli.run(this).ev()
   }
 }
