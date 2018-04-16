@@ -1,0 +1,37 @@
+buildscript {
+  ext.kotlin_version = '1.2.31'
+  ext.arrowVersion = "0.7.1"
+
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
+}
+
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+
+repositories {
+  mavenCentral()
+  jcenter()
+}
+
+dependencies {
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+  implementation("io.arrow-kt:arrow-core:$arrowVersion")
+  implementation("io.arrow-kt:arrow-syntax:$arrowVersion")
+  implementation("io.arrow-kt:arrow-typeclasses:$arrowVersion")
+  implementation("io.arrow-kt:arrow-data:$arrowVersion")
+  implementation("io.arrow-kt:arrow-instances-core:$arrowVersion")
+  implementation("io.arrow-kt:arrow-instances-data:$arrowVersion")
+}
+
+compileKotlin {
+  kotlinOptions.jvmTarget = "1.8"
+}
+
